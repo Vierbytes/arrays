@@ -1,13 +1,16 @@
 let shoppingList = []
 
 function addItem(item) {
-    shoppingList.push(item)
-    console.log(shoppingList);
-    return;
+    if (!shoppingList.includes(item)) {
+        shoppingList.push(item)
+        console.log(shoppingList);
+        return;
+    }
 }
 
 addItem('Apples')
 addItem('Pears')
+addItem('Shoes')
 addItem('Steak')
 
 function removeLastItem() {
@@ -25,4 +28,10 @@ function displayList() {
 
 displayList()
 
+function filterItems(searchTerm) {
+    return shoppingList.filter(item =>
+        item.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+}
 
+filterItems(`Shoes`)
