@@ -1,37 +1,61 @@
-let shoppingList = []
+window.addEventListener('load', () => {
+    let shoppingList = []
 
-function addItem(item) {
-    if (!shoppingList.includes(item)) {
-        shoppingList.push(item)
-        console.log(shoppingList);
-        return;
+    function addItem(item) {
+        if (!shoppingList.includes(item)) {
+            shoppingList.push(item)
+            console.log(shoppingList);
+            return;
+        }
     }
-}
 
-addItem('Apples')
-addItem('Pears')
-addItem('Shoes')
-addItem('Steak')
+    addItem('Apples')
+    addItem('Pears')
+    addItem('Shoes')
+    addItem('Steak')
 
-function removeLastItem() {
-    shoppingList.pop()
-    console.log(shoppingList);
-}
+    function removeLastItem() {
+        shoppingList.pop()
+        console.log(shoppingList)
+    }
 
-removeLastItem()
+    removeLastItem()
 
-function displayList() {
-    shoppingList.forEach((items, ids)=> {
-    console.log(ids + ') ' + items);
+    function displayList() {
+        let listDisplay = document.getElementById('shoppingListDisplay')
+        listDisplay.innerHTML = ``;
+        for (let i =0; i < shoppingList.length; i++) {
+            let listItem = document.createElement('li')
+            listItem.textContent = shoppingList[i]
+            listDisplay.appendChild(listItem)
+        }
+        shoppingList.forEach((items, ids)=> {
+        console.log(ids + ') ' + items);
+        })
+    }
+
+    displayList()
+
+    document.getElementById('addItemButton').addEventListener('click', () => {
+        let input = document.getElementById('itemInput')
+        let itemText = input.value
+
+        if (itemText !== '') {
+            addItem(itemText)
+            displayList()
+            input.value = ''
+        }
     })
-}
 
-displayList()
+    document.getElementById('removeButton').addEventListener('click', () => {
+        removeLastItem()
+        displayList()
+    })
+    function filterItems(searchTerm) {
+        return shoppingList.filter(item =>
+            item.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    }
 
-function filterItems(searchTerm) {
-    return shoppingList.filter(item =>
-        item.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-}
-
-filterItems(`Shoes`)
+    filterItems(`Shoes`)
+})
